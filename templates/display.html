@@ -1,0 +1,30 @@
+<!-- templates/display.html (modified) -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display File</title>
+</head>
+<body>
+    {% if file_ext in ['png', 'jpg', 'jpeg', 'gif'] %}
+        <h1>Image File</h1>
+        <img src="{{ file_url }}" alt="Uploaded Image" width="500">
+    {% elif file_ext == 'txt' %}
+        <h1>Text File</h1>
+        <pre>
+            {{ content }}
+        </pre>
+    {% elif file_ext in ['wav', 'mp3'] %}
+        <h1>Audio File</h1>
+        <audio controls>
+            <source src="{{ file_url }}" type="audio/{{ file_ext }}">
+            Your browser does not support the audio element.
+        </audio>
+    {% else %}
+        <p>Unsupported file type.</p>
+    {% endif %}
+    <form action="{{ url_for('preprocess', filename=filename) }}" method="post">
+        <input type="submit" value="Preprocess">
+    </form>
+</body>
+</html>
+
